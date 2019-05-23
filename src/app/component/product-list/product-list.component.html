@@ -1,0 +1,22 @@
+<div *ngIf="productList">
+  <div class="button_groups">
+    <button (click)="startRandomRating($event)" [disabled]="enableRandomRating">Start Random Rating</button>
+    <button (click)="stopRandomRating($event)" [disabled]="!enableRandomRating">Stop Random Rating</button>
+  </div>
+  <div [ngClass]="{'loader': showLoader }"></div>
+  <ul class="list">
+    <li *ngFor="let product of productList | async">
+      <a href="#">
+        <div>Name: {{ product.name }}</div>
+        <div class="thumbnail">
+          <img src="{{'data:image/jpg;base64,' + product.photo}}" />
+        </div>
+        <div>Price: ${{ product.price }}</div>
+        <div>
+            <app-rating [rating]='product.rating' [id]='product.id' (ratingClick)='ratingComponentClick($event)'></app-rating>
+            {{product.rating}} Stars
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>
